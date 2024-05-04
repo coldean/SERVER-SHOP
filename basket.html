@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
+    <style>
+        /* 스타일링 */
+        .product {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>장바구니</h1>
+
+    <!-- 상품 목록 -->
+    <div id="cart-items">
+        <!-- 여기에 JavaScript로 동적으로 상품을 추가할 수 있습니다. -->
+    </div>
+
+    <!-- 상품 삭제 버튼 -->
+    <button onclick="clearCart()">장바구니 비우기</button>
+
+    <!-- 결제 버튼 -->
+    <button onclick="checkout()">결제</button>
+
+    <script>
+        // 상품 목록 데이터 (예시)
+        var products = [
+            { id: 1, name: "상품 1", price: 10000 },
+            { id: 2, name: "상품 2", price: 20000 },
+            { id: 3, name: "상품 3", price: 30000 }
+        ];
+
+        // 장바구니에 상품 추가하는 함수
+        function addToCart(product) {
+            var cartItems = document.getElementById("cart-items");
+            var productDiv = document.createElement("div");
+            productDiv.classList.add("product");
+            productDiv.innerHTML = `
+                <span>${product.name} - 가격: ${product.price}원</span>
+                <input type="number" value="1" min="1">
+                <button onclick="removeFromCart(${product.id})">삭제</button>
+            `;
+            cartItems.appendChild(productDiv);
+        }
+
+        // 장바구니 비우는 함수
+        function clearCart() {
+            var cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+        }
+
+        // 상품 삭제하는 함수
+        function removeFromCart(productId) {
+            var cartItems = document.getElementById("cart-items");
+            var productToRemove = document.getElementById("product-" + productId);
+            cartItems.removeChild(productToRemove);
+        }
+
+        // 결제 함수
+        function checkout() {
+            alert("결제 완료!");
+        }
+
+        // 페이지 로드 시 초기 상품 목록 표시
+        window.onload = function() {
+            products.forEach(function(product) {
+                addToCart(product);
+            });
+        }
+    </script>
+</body>
+</html>
